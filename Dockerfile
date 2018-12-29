@@ -25,3 +25,7 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-sel
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y oracle-java8-installer
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y oracle-java8-set-default
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl dos2unix unzip
+
+RUN curl -L $HIPPO_URL -o $HIPPO_FILE
