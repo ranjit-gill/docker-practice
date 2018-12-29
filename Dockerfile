@@ -8,7 +8,7 @@ FROM ubuntu:18.04
 #Set Environment Variables
 ENV PATH /srv/hippo/bin:$PATH
 ENV HIPPO_FILE HippoCMS-Enterprise-7.9.4.zip
-ENV HIPPO_FOLDER HippoCMS-Enterprise-7.9.4
+ENV HIPPO_FOLDER HippoCMS-GoGreen-Enterprise-7.9.4
 ENV HIPPO_URL http://download.demo.onehippo.com/7.9.4/HippoCMS-GoGreen-Enterprise-7.9.4.zip
  
 #Create Working Directory
@@ -29,3 +29,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y oracle-java8-set-default
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl dos2unix unzip
 
 RUN curl -L $HIPPO_URL -o $HIPPO_FILE
+
+RUN unzip $HIPPO_FILE
+RUN mv $HIPPO_FOLDER/tomcat/* /srv/hippo
+RUN chmod 700 /srv/hippo* -R
+
+RUN dos2unix /srv/hippo/bin/setenv.sh
+RUN dos2unix /srv/hippo/bin/catalina.sh
+
+EXPOSE 8080
+
+WORKDIR /srv/hippo
+CMD ["catalina.sh", "run"]
