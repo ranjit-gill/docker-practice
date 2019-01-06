@@ -41,3 +41,5 @@ EXPOSE 8080
 #Start the hippo CMS Application
 WORKDIR /srv/hippo
 CMD ["catalina.sh", "run"]
+
+RUN echo "Image Created Successfully"
